@@ -252,3 +252,16 @@ program
 //     console.log(path.resolve(__dirname, '../.env'))
 //   })
 program.parse()
+// src/index.js 末尾添加（在 Wechaty bot 启动代码之后）
+
+import express from 'express';  // 需要先 npm install express
+
+const healthApp = express();
+healthApp.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
+const HEALTH_PORT = process.env.PORT || 80;
+healthApp.listen(HEALTH_PORT, () => {
+  console.log(`Health check server listening on port ${HEALTH_PORT}`);
+});
